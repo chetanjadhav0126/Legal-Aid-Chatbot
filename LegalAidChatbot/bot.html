@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legal Aid Chatbot</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Google Sans', 'Google Sans', 'Google Sans';
+            background: url('file:///C:/Users/aayus/Downloads/LegalAidChatbot/backgroundpicture-01.png') center/cover; /* Use file:/// for local paths */
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+
+
+        #header {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background-color: rgb(52, 51, 61);
+            z-index: 1000;
+        }
+
+        #logo {
+            width: 100px;
+            /* Adjust the logo size */
+            height: auto;
+            margin-right: 10px;
+        }
+
+        #title {
+            font-size: 30px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        #profile-section {
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 10px;
+            background-color: rgb(52, 51, 61);
+            z-index: 1000;
+        }
+
+        #profile-section img {
+            width: 30px;
+            /* Adjust the profile image size */
+            height: auto;
+            margin-bottom: 10px;
+            border-radius: 50%;
+        }
+
+        #profile-section .user-info {
+            display: flex;
+            align-items: center;
+            color: #fff;
+        }
+
+        #profile-section .user-info span {
+            margin-left: 10px;
+        }
+
+        #profile-section button {
+            padding: 10px;
+            background-color: rgb(52, 51, 61);
+            color: #fff;
+            border: none;
+            font-family: 'Google Sans', 'Google Sans';
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        p {
+            color: #fff;
+            /* Set the color for paragraphs */
+        }
+
+        #chat-container {
+            background-color: rgba(255, 255, 255, 0.7);
+            /* Adjust transparency as needed */
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            /* Adjusted to 80% */
+            max-width: 800px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            margin-top: 40px;
+            /* Adjust the margin as needed */
+            height: calc(100% + 20px); /* Increase height by 20px */
+            display: flex;
+            flex-direction: column;
+        }
+
+        #chat-messages {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .message {
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-end;
+            margin-bottom: 10px;
+        }
+
+        .user-message {
+            background-color: #dcf8c6;
+            color: #000;
+            border-radius: 10px;
+            padding: 10px;
+            max-width: 70%;
+        }
+
+        .chatbot-message {
+            background-color: #fff;
+            color: #000;
+            border-radius: 10px;
+            padding: 10px;
+            max-width: 70%;
+            align-self: flex-end;
+        }
+
+        #user-input {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            font-family: 'Google Sans', 'Google Sans';
+            background-color: #f0f0f0;
+        }
+
+        #user-message {
+            flex-grow: 2;
+            padding: 8px;
+            border: 1px solid #ccc;
+            font-family: 'Google Sans', 'Google Sans';
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        #send-button,
+        #delete-button {
+            padding: 10px;
+            background-color: rgb(52, 51, 61);
+            color: #fff;
+            border: none;
+            font-family: 'Google Sans', 'Google Sans';
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #send-button {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="profile-section">
+        <div class="user-info" id="user-info">
+            <img src="" alt="Profile Image" id="profile-image">
+            <span id="username">Username</span>
+        </div>
+        <button onclick="signOut()">Sign Out</button>
+    </div>
+
+    <div id="header">
+        <img id="logo" src="logo.png.png" alt="Logo">
+        <div id="title">Legal Aid Chatbot</div>
+    </div>
+
+    <!-- Chat Container -->
+    <div id="chat-container">
+        <div id="chat-messages">
+            <div class="message">
+                <span class="chatbot-message">Welcome! How can I help you today?</span>
+            </div>
+        </div>
+        <div id="user-input">
+            <input type="text" id="user-message" placeholder="Type your message..." onkeypress="handleEnterKey(event)">
+            <button id="send-button" onclick="sendMessage()">Send</button>
+            <button id="delete-button" onclick="deleteChats()">Delete Chats</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chatbotjs"></script>
+    <script>
+        const chatbot = new ChatbotJS();
+
+        // Function to fetch user details (replace with your implementation)
+        function fetchUserDetails() {
+            // Example: Assume user is authenticated and details are fetched
+            const userEmail = "user@example.com";
+            const userProfileImage = "path/to/profile-image.jpg";
+
+            // Update profile section
+            document.getElementById('username').innerText = userEmail.split('@')[0];
+            document.getElementById('profile-image').src = userProfileImage;
+        }
+
+        // Function to handle enter key press
+        function handleEnterKey(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        // Function to sign out (replace with your implementation)
+        function signOut() {
+            // Add your sign-out logic here
+            window.location.href = 'front.html';
+        }
+
+        // Function to send a message
+        function sendMessage() {
+            const userMessage = document.getElementById('user-message').value;
+
+            // Add user message to chat
+            appendMessage('You', userMessage, 'user-message');
+
+            // Get chatbot response
+            const botResponse = chatbot.getResponse(userMessage);
+
+            // Add chatbot response to chat
+            appendMessage('Chatbot', botResponse, 'chatbot-message');
+
+            // Clear user input
+            document.getElementById('user-message').value = '';
+        }
+
+        // Function to delete chats
+        function deleteChats() {
+            const chatMessages = document.getElementById('chat-messages');
+            chatMessages.innerHTML = ''; // Clear all messages
+        }
+
+        // Function to append a message to the chat
+        function appendMessage(sender, message, messageType) {
+            const chatMessages = document.getElementById('chat-messages');
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message');
+            messageElement.innerHTML = `<strong>${sender}:</strong> <span class="${messageType}">${message}</span>`;
+            chatMessages.appendChild(messageElement);
+
+            // Scroll to the bottom of the chat messages
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // Fetch user details and initiate the chat
+        fetchUserDetails();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legal Aid Chatbot</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Google Sans', 'Google Sans', 'Google Sans';
+            background: url('file:///C:/Users/aayus/Downloads/LegalAidChatbot/backgroundpicture-01.png') center/cover; /* Use file:/// for local paths */
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+
+        #container {
+            background-color: rgba(255, 255, 255, 0.7); /* Adjust transparency as needed */
+            padding: 20px;
+            border-radius: 10px;
+            width: 60%;
+            max-width: 800px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #logo {
+            display: flex;
+            align-items: left;
+            justify-content: left;
+            margin-bottom: 20px;
+        }
+
+        #logo img {
+            width: 100px; /* Increased the size of the logo */
+            height: auto;
+            margin-right: 10px;
+        }
+
+        #title {
+            font-size:50px; /* Increased the title text size */
+            margin-bottom: 0px;
+            text-align: left;
+            max-width: 800px;
+            color: black; /* Set title text color to black */
+        }
+
+        #services {
+            margin: 0 auto;
+            font-size:17px;
+            font-style: italic;
+            color:black;
+            text-align: left;
+            max-width: 700px;
+        }
+
+        #buttons {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 20px;
+            font-family: 'Google Sans', 'Google Sans', sans-serif;
+            box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            font-weight: bold;
+            background-color: rgb(52, 51, 61);
+            color: rgb(255, 255, 255); /* Set button text color to black */
+            width: 150px;
+            cursor: pointer;
+            margin-left: 40px;
+            margin-right: 40px; /* Added some distance between the buttons */
+        }
+
+        #bottom-image {
+            width: 70%; /* Adjust the width as needed */
+            height: auto; /* Maintain aspect ratio */
+            margin-top: 20px; /* Add margin as needed */
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="container">
+        <div id="logo">
+            <img src="logo.png.png" alt="Legal Aid Chatbot Logo">
+            <div>
+                <h1 id="title">Legal Aid Chatbot</h1>
+            </div>
+        </div>
+
+        <div id="services">
+            <h2>How it works</h2>
+            <p>Legal Aid Chatbot is designed to provide instant assistance for your legal queries. Here's how it works:</p>
+            <ol>
+                <li>Ask legal questions to our chatbot.</li>
+                <li>Get guidance on legal procedures and information about your rights.</li>
+                <li>Explore various legal topics and find answers to your concerns.</li>
+            </ol>
+            <!-- Add more details and services here -->
+        </div>
+        
+        <div id="buttons">
+            
+            <button onclick="window.location.href='signin.html'">Sign In</button>
+        </div>
+    <img id="bottom-image" src="bottomimage-01.png">
+    
+</body>
+</html>
